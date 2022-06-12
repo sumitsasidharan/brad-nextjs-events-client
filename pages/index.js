@@ -8,6 +8,7 @@ export default function HomePage({events}) {
     <Layout>
        <h1>Upcoming Events</h1>
 
+      {/* can render a loader if events array is 0 */}
        {events.length === 0 && <h3>No events to show</h3>}
 
        {events.map(evt => (
