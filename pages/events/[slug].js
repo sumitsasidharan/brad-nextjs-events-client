@@ -61,10 +61,10 @@ export async function getStaticPaths() {
    const res = await fetch(`${API_URL}/api/events`)
    const events = await res.json();
 
-   const paths = events.map(evt => ({
-      params: {slug: evt.slug}
+   const paths = events.data.map(evt => ({
+      params: {slug: evt.attributes.slug}
    }))
-console.log(paths)
+
    return {
       paths,
       fallback: true
@@ -73,14 +73,14 @@ console.log(paths)
 
 // the paths from getStaticPaths() is passed onto getStaticProps() in req object
 export async function getStaticProps({params: {slug}}) {
-   const res = await fetch(`${API_URL}/api/events/${slug}`);
+   const res = await fetch(`${API_URL}/api/events?slug=${slug}`);
    const events = await res.json();
-
+console.log(events)
    return {
-      props: {
-         evt: events[0]
-      },
-      revalidate: 1
+      // props: {
+      //    evt: events[0]
+      // },
+      // revalidate: 1
    }
 }
 
